@@ -136,6 +136,8 @@ http://localhost:3000
 
 - `/`
 - `/postsleep.html`
+- `/result.html`
+- `/result/latest`
 
 추후 구현이 진행되면 아래 페이지도 추가될 수 있습니다.
 
@@ -157,6 +159,7 @@ http://localhost:3000
 - Health check 응답 확인
 - Post-sleep feedback 화면 확인
 - feedback 입력 / 저장 / 수정 동작 확인
+- latest result 조회 확인
 
 ---
 

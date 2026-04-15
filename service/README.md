@@ -200,22 +200,23 @@ service/
 
 - 메인 허브 페이지
 - 취침 전 예측 화면
-- 기상 후 결과 입력 화면
+- 기상 후 만족도 입력 화면
+- 최신 결과 조회 화면
 - 페이지별 JS 파일
 
 현재 기준 파일은 아래처럼 보고 있습니다.
 
 - `index.html`
+- `presleep.html`
+- `presleep.js`
 - `postsleep.html`
 - `postsleep.js`
-
-추후 아래 파일도 확장할 수 있습니다.
-
-- `presleep.html`
+- `result.html`
+- `result.js`
 - `app.js`
 
 즉 지금은 `index`를 허브처럼 두고,  
-실제 현재 구현된 기능은 `postsleep` 쪽에 붙이는 방식으로 시작한 상태입니다.
+`presleep`, `postsleep`, `result` 화면을 분리해서 기능별로 붙여 가는 방식으로 시작한 상태입니다.
 
 ---
 
