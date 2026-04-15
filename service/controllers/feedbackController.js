@@ -1,8 +1,8 @@
 const { saveFeedback } = require("../services/feedbackService");
 
-function postFeedback(req, res) {
+async function postFeedback(req, res) {
   try {
-    const result = saveFeedback(req.body);
+    const result = await saveFeedback(req.body);
 
     return res.status(200).json({
       status: "ok",
@@ -10,7 +10,7 @@ function postFeedback(req, res) {
       data: result
     });
   } catch (error) {
-    return res.status(500).json({
+    return res.status(400).json({
       status: "error",
       message: error.message
     });
