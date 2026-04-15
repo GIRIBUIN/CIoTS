@@ -1,8 +1,8 @@
 const { fetchLatestResult } = require("../services/resultService");
 
-function getLatestResult(req, res) {
+async function getLatestResult(req, res) {
   try {
-    const result = fetchLatestResult();
+    const result = await fetchLatestResult();
 
     return res.status(200).json({
       status: "ok",

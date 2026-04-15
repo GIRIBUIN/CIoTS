@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ZZZ - Latest Result</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 60px auto;
+      padding: 0 20px;
+      line-height: 1.6;
+    }
+    .box {
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+    button {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+    }
+    pre {
+      background: #f7f7f7;
+      padding: 12px;
+      border-radius: 8px;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h1>Latest Result</h1>
+    <p>현재 저장된 최신 결과를 확인하는 화면입니다.</p>
+    <p><a href="/">← index로 돌아가기</a></p>
+  </div>
+
+  <div class="box">
+    <h2>최신 결과 조회</h2>
+    <button id="loadBtn">불러오기</button>
+  </div>
+
+  <div class="box">
+    <h2>응답 결과</h2>
+    <pre id="resultBox">아직 요청하지 않았습니다.</pre>
+  </div>
+
+  <script src="/result.js"></script>
+</body>
+</html>
