@@ -5,6 +5,9 @@ const dotenv = require("dotenv");
 dotenv.config({ path: path.join(__dirname, "..", ".env") });
 
 const healthRouter = require("./routes/health");
+const predictRouter = require("./routes/predict");
+const resultRouter = require("./routes/result");
+const feedbackRouter = require("./routes/feedback");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +18,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // API routes
 app.use("/health", healthRouter);
+app.use("/predict", predictRouter);
+app.use("/result", resultRouter);
+app.use("/feedback", feedbackRouter);
 
 // Static files
 app.use(express.static(path.join(__dirname, "public")));

@@ -106,6 +106,35 @@ service/
 - `feedback.js`
 - `health.js`
 
+#### 현재 기준 API 뼈대
+
+최소 실행 가능한 API 구조를 우선 사용합니다.
+
+- `GET /health`
+- `POST /predict/presleep`
+- `GET /result/latest`
+- `POST /feedback`
+
+이 구조는 서비스의 핵심 흐름인 **취침 전 예측 → 결과 조회 → 만족도 입력**을 기준으로 가장 먼저 필요한 엔드포인트를 단순하게 정리한 것입니다.
+
+#### 확장 방향
+
+현재 API는 초기 뼈대이며, 이후 기능이 구체화되면 더 세분화할 수 있습니다.
+
+예를 들면 다음과 같은 방향으로 확장할 수 있습니다.
+
+- 날짜 기반 결과 조회  
+  - `GET /result?sleep_date=YYYY-MM-DD`
+- 결과 종류별 조회 분리  
+  - `GET /sleep-score/latest`
+  - `GET /analysis/latest`
+- 예측 종류 확장  
+  - `POST /predict/postsleep`
+- 사용자 또는 세션 기준 조회 구조 추가
+
+즉, 현재는 **구현 시작을 위한 최소 구조**를 우선 사용하고,  
+이후에는 결과 종류와 조회 조건에 따라 점진적으로 API를 분리하는 방향을 고려합니다.
+
 ---
 
 ### 4-3. `controllers/`
@@ -292,7 +321,14 @@ service -> storage
 
 ---
 
-## 10. 관련 문서
+## 10. API 설계 메모
+
+현재 `service/` 계층의 API는 최소 실행 가능한 구조를 우선 사용합니다.  
+따라서 지금은 단순하고 명확한 endpoint를 먼저 열고, 이후 기능이 늘어나면 결과 종류와 조회 조건에 따라 세분화하는 방향을 따릅니다.
+
+---
+
+## 11. 관련 문서
 
 [![Previous](https://img.shields.io/badge/Previous-6B7280?style=for-the-badge)](../processing/README.md)
 [![Next](https://img.shields.io/badge/Next-16A34A?style=for-the-badge)](../storage/README.md)
