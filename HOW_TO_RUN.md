@@ -122,7 +122,33 @@ npm run dev
 
 ---
 
-## 8. 서비스 접속 확인
+## 8. UI 테스트용 더미 데이터 넣기
+
+프론트 화면을 빠르게 확인하려면 더미 데이터를 먼저 넣는 것이 편합니다.
+
+이 단계는 **현재 개발 및 UI 확인용 임시 절차**입니다.  
+즉, 지금은 화면 확인을 위해 `seed-demo`를 사용하지만,  
+이후 실제 센서 수집 / Fitbit 연동 / 예측 및 분석 파이프라인이 연결되면  
+운영 흐름에서는 더미 데이터를 넣지 않고 실제 적재 데이터로 화면을 확인하게 됩니다.
+
+아래 명령은 다음 테이블에 테스트용 데이터를 넣습니다.
+
+- `prediction_result`
+- `sleep_score_result`
+- `sensor_raw`
+- `post_analysis_result`
+
+```bash
+npm run seed-demo
+```
+
+테스트가 끝난 뒤 더미 데이터를 지우고 싶으면 아래 명령을 사용합니다.
+
+```bash
+npm run cleanup-demo
+```
+
+## 9. 서비스 접속 확인
 
 서비스가 정상적으로 실행되면 브라우저에서 로컬 서버에 접속할 수 있어야 합니다.
 
@@ -135,17 +161,12 @@ http://localhost:3000
 현재 기준으로 확인 가능한 페이지:
 
 - `/`
+- `/presleep.html`
 - `/postsleep.html`
 - `/result.html`
 - `/result/latest`
 
-추후 구현이 진행되면 아래 페이지도 추가될 수 있습니다.
-
-- `/presleep.html`
-
----
-
-## 9. 현재 기준 확인 가능한 항목
+## 10. 현재 기준 확인 가능한 항목
 
 현재 기준으로는 아래 정도까지 확인할 수 있습니다.
 
@@ -155,15 +176,17 @@ http://localhost:3000
 - DB 스키마 확인
 - DB 초기화 실행
 - Express 서버 실행
+- 더미 데이터 적재 / 정리
 - 로컬 접속 확인
 - Health check 응답 확인
+- Overview 화면의 summary / environment / sleep score trend 확인
+- Pre-sleep prediction 화면의 input / result 확인
 - Post-sleep feedback 화면 확인
 - feedback 입력 / 저장 / 수정 동작 확인
 - latest result 조회 확인
+- Result 화면의 feedback / prediction / sleep score / analysis 확인
 
----
-
-## 10. 추후 추가 예정
+## 11. 추후 추가 예정
 
 아래 항목은 구현이 진행되면 이 문서에 추가합니다.
 
