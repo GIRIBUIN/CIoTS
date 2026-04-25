@@ -183,18 +183,34 @@ async function collectPostsleep() {
   console.log('[collect_fitbit] 기상 후 수집 완료');
 }
 
+module.exports = {
+  collectPresleep,
+  collectPostsleep,
+};
+
 // run
-(async () => {
-  try {
-    if (mode === 'presleep') {
-      await collectPresleep();
-    } else {
-      await collectPostsleep();
-    }
-  } catch (err) {
-    console.error('[collect_fitbit] 오류:', err.message);
+if (require.main === module) {
+  const args    = process.argv.slice(2);
+  const modeIdx = args.indexOf('--mode');
+  const mode    = modeIdx !== -1 ? args[modeIdx + 1] : 'presleep';
+ 
+  if (!['presleep', 'postsleep'].includes(mode)) {
+    console.error('--mode는 presleep 또는 postsleep 이어야 합니다.');
     process.exit(1);
-  } finally {
-    db.close();
   }
-})();
+ 
+  (async () => {
+    try {
+      if (mode === 'presleep') {
+        await collectPresleep();
+      } else {
+        await collectPostsleep();
+      }
+    } catch (err) {
+      console.error('[collect_fitbit] 오류:', err.message);
+      process.exit(1);
+    } finally {
+      db.close();
+    }
+  })();
+}
