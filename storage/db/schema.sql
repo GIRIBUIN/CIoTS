@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS fitbit_heart (
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_fitbit_heart_ts
+CREATE UNIQUE INDEX IF NOT EXISTS uq_fitbit_heart_ts
 ON fitbit_heart(ts);
 
 -- =========================================================
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS fitbit_steps (
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_fitbit_steps_ts
+CREATE UNIQUE INDEX IF NOT EXISTS uq_fitbit_steps_ts
 ON fitbit_steps(ts);
 
 -- =========================================================
@@ -67,7 +67,7 @@ CREATE TABLE IF NOT EXISTS fitbit_sleep (
     created_at TEXT DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE INDEX IF NOT EXISTS idx_fitbit_sleep_date
+CREATE UNIQUE INDEX IF NOT EXISTS uq_fitbit_sleep_date
 ON fitbit_sleep(sleep_date);
 
 -- =========================================================

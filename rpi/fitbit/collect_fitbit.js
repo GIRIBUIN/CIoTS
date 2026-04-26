@@ -64,7 +64,7 @@ function saveHeartRaw(heartJson, minutes = null) {
   if (minutes) series = sliceLastMinutes(series, minutes);
 
   const stmt = db.prepare(`
-    INSERT INTO fitbit_heart (ts, bpm, created_at)
+    INSERT OR IGNORE INTO fitbit_heart (ts, bpm, created_at)
     VALUES (?, ?, ?)
   `);
 
@@ -91,7 +91,7 @@ function saveStepsRaw(stepsJson, minutes = null) {
   if (minutes) series = sliceLastMinutes(series, minutes);
 
   const stmt = db.prepare(`
-    INSERT INTO fitbit_steps (ts, steps, created_at)
+    INSERT OR IGNORE INTO fitbit_steps (ts, steps, created_at)
     VALUES (?, ?, ?)
   `);
 
@@ -119,7 +119,7 @@ function saveSleepRaw(sleepJson) {
   const levels = mainSleep.levels?.summary ?? {};
 
   db.run(`
-    INSERT INTO fitbit_sleep (
+    INSERT OR IGNORE INTO fitbit_sleep (
       sleep_date, start_time, end_time,
       minutes_asleep, minutes_awake,
       deep_minutes, light_minutes, rem_minutes,
@@ -188,7 +188,7 @@ module.exports = {
   collectPostsleep,
 };
 
-// run
+// run(터미널에서)
 if (require.main === module) {
   const args    = process.argv.slice(2);
   const modeIdx = args.indexOf('--mode');
