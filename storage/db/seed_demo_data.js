@@ -161,8 +161,9 @@ async function seedSensorRaw() {
             AVG(humidity) AS avg_humidity_1h,
             AVG(mq5_index) AS avg_mq5_index_1h
      FROM sensor_raw
-     WHERE ts >= ?`,
-    [oneHourAgo]
+     WHERE ts >= ?
+       AND created_at = ?`,
+    [oneHourAgo, DEMO_SENSOR_CREATED_AT]
   );
 
   return {
@@ -195,12 +196,27 @@ async function seedFitbitFromSeedDb() {
       allFromSource(sourceDb, `SELECT bpm FROM fitbit_heart ORDER BY ts`),
       allFromSource(sourceDb, `SELECT steps FROM fitbit_steps ORDER BY ts`)
     ]);
-    const caloriesRows = caloriesTable
+    let caloriesRows = caloriesTable
       ? await allFromSource(sourceDb, `SELECT calories FROM fitbit_calories ORDER BY ts`)
       : [];
 
     if (heartRows.length === 0 || stepsRows.length === 0) {
       throw new Error("zzz-seed.db에 fitbit_heart 또는 fitbit_steps 데이터가 없습니다.");
+    }
+
+    if (caloriesRows.length === 0) {
+      caloriesRows = await all(
+        `SELECT calories
+         FROM (
+           SELECT calories, ts
+           FROM fitbit_calories
+           WHERE created_at != ?
+           ORDER BY ts DESC
+           LIMIT 60
+         )
+         ORDER BY ts`,
+        [DEMO_FITBIT_CREATED_AT]
+      );
     }
 
     await run(`DELETE FROM fitbit_heart WHERE created_at = ?`, [DEMO_FITBIT_CREATED_AT]);
@@ -241,20 +257,23 @@ async function seedFitbitFromSeedDb() {
     const [heartSummary] = await all(
       `SELECT AVG(bpm) AS avg_hr_1h
        FROM fitbit_heart
-       WHERE ts >= ?`,
-      [oneHourAgo]
+       WHERE ts >= ?
+         AND created_at = ?`,
+      [oneHourAgo, DEMO_FITBIT_CREATED_AT]
     );
     const [stepsSummary] = await all(
       `SELECT SUM(steps) AS steps_sum_1h
        FROM fitbit_steps
-       WHERE ts >= ?`,
-      [oneHourAgo]
+       WHERE ts >= ?
+         AND created_at = ?`,
+      [oneHourAgo, DEMO_FITBIT_CREATED_AT]
     );
     const [caloriesSummary] = await all(
       `SELECT SUM(calories) AS calories_sum_1h
        FROM fitbit_calories
-       WHERE ts >= ?`,
-      [oneHourAgo]
+       WHERE ts >= ?
+         AND created_at = ?`,
+      [oneHourAgo, DEMO_FITBIT_CREATED_AT]
     );
 
     return {
