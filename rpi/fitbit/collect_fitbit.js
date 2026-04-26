@@ -188,7 +188,7 @@ module.exports = {
   collectPostsleep,
 };
 
-// run
+// run(터미널에서)
 if (require.main === module) {
   const args    = process.argv.slice(2);
   const modeIdx = args.indexOf('--mode');
