@@ -7,7 +7,11 @@ const db = require("../../storage/db/db");
  */
 function buildFeatureSnapshot() {
   return new Promise((resolve, reject) => {
-    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    // KST = UTC+9, DB에 KST로 저장되어 있으므로 KST 기준으로 계산
+    const KST_OFFSET = 9 * 60 * 60 * 1000;
+    const oneHourAgo = new Date(Date.now() + KST_OFFSET - 60 * 60 * 1000)
+      .toISOString()
+      .replace('Z', '');
     const today = new Date().toISOString().slice(0, 10);
  
     // 심박 평균, 걸음수 합계 동시 조회
@@ -74,8 +78,9 @@ async function postPresleepPrediction(req, res) {
   try {
     console.log("[predictController]:: Fitbit 데이터 수집 시작");
     await collectPresleep();
-    console.log("[predictController]:: Fitbit 데이터 수집 완료");
- 
+    console.log("[predictController] Fitbit 데이터 수집 완료");
+    await new Promise(resolve => setTimeout(resolve, 500));
+     
     // 2. DB에서 feature snapshot 집계
     const snapshot = await buildFeatureSnapshot();
     console.log("[predictController]:: feature snapshot:", snapshot);
